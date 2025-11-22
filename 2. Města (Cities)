@@ -1,0 +1,16 @@
+import pandas as pd
+
+wc = pd.read_csv("world_cities.txt")
+
+target_countries = ['Germany', 'France', 'United Kingdom', 'Spain']
+
+countries_mask = wc['country'].isin(['Germany', 'France', 'United Kingdom', 'Spain'])
+filtered_wc = wc[countries_mask]
+
+for country in target_countries:
+    country_mask = filtered_wc['country'] == country
+    country_cities = filtered_wc[country_mask]
+
+    top_10 = country_cities.nlargest(10, 'population')[['city', 'population']]
+
+    print(country)
