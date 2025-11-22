@@ -4,7 +4,7 @@ wc = pd.read_csv("world_cities.txt")
 
 target_countries = ['Germany', 'France', 'United Kingdom', 'Spain']
 
-countries_mask = wc['country'].isin(['Germany', 'France', 'United Kingdom', 'Spain'])
+countries_mask = wc['country'].isin(target_countries)
 filtered_wc = wc[countries_mask]
 
 for country in target_countries:
@@ -14,3 +14,4 @@ for country in target_countries:
     top_10 = country_cities.nlargest(10, 'population')[['city', 'population']]
 
     print(country)
+    print(top_10)
