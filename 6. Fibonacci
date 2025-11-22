@@ -1,0 +1,27 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+def fib(num):
+    f_list: list[int] = [0, 1]
+    num1, num2 = 0, 1
+    for i in range(num):
+        res = num1 + num2
+        num1 = num2
+        num2 = res
+        f_list.append(res)
+    print('Fibonacci sequence is:', ', '.join(map(str, f_list)))
+
+    summa = sum(f_list)
+    print('Total:', summa)
+
+
+    average = np.average(f_list)
+    print('Average:', average)
+
+    deviation = np.std(f_list)
+    print('Standard deviation:', deviation)
+
+    plt.plot(f_list)
+    plt.show()
+
+fib(10)
