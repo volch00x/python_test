@@ -1,0 +1,38 @@
+import pandas as pd
+
+p = pd.read_csv("profily.csv", skiprows=[1])
+
+profiles = {}
+
+for _, row in p.iterrows():
+    name = row['Profil']
+    characteristics = {
+        'G': row['G'],
+        'h': row['h'],
+        'b': row['b'],
+        'tw': row['tw'],
+        'tf': row['tf'],
+        'r1': row['r1'],
+        'r2': row['r2'],
+        'A': row['A']
+    }
+    profiles[name] = characteristics
+
+# print('IPN 140, A =',profiles['IPN 140']['A'])
+
+def user_choice():
+
+    n = input('Profile name: ')
+
+    if n in profiles:
+
+        m_inertia = round(1/12 * profiles[n]['tw'] * (profiles[n]['h'] - 2 * profiles[n]['tf'])**3, 3)
+        profiles[n]['Moment inertia'] = m_inertia
+
+        print(n, 'characteristics:', profiles[n])
+
+    else:
+        print('Available profiles:', ', '.join(list(profiles.keys())))
+        user_choice()
+
+user_choice()
