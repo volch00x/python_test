@@ -1,8 +1,8 @@
 import csv
 
-with open("C:/Users/Ivan Volch/Desktop/ČVUT/Magistr/1. semestr/132PYT1/test/lending_records.txt") as r, \
-     open("C:/Users/Ivan Volch/Desktop/ČVUT/Magistr/1. semestr/132PYT1/test/random_books.txt") as b, \
-     open("C:/Users/Ivan Volch/Desktop/ČVUT/Magistr/1. semestr/132PYT1/test/random_users.txt") as u:
+with open("lending_records.txt") as r, \
+     open("random_books.txt") as b, \
+     open("random_users.txt") as u:
 
     records = csv.reader(r)
     books = csv.reader(b)
