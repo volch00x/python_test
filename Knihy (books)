@@ -1,0 +1,49 @@
+import csv
+
+with open("C:/Users/Ivan Volch/Desktop/ČVUT/Magistr/1. semestr/132PYT1/test/lending_records.txt") as r, \
+     open("C:/Users/Ivan Volch/Desktop/ČVUT/Magistr/1. semestr/132PYT1/test/random_books.txt") as b, \
+     open("C:/Users/Ivan Volch/Desktop/ČVUT/Magistr/1. semestr/132PYT1/test/random_users.txt") as u:
+
+    records = csv.reader(r)
+    books = csv.reader(b)
+    users = csv.reader(u)
+
+    book_popularity = {}
+    for line in records:
+        user_id = line[0]
+        for i in range(1, len(line)):
+            book_id = line[i].strip()
+            if book_id in book_popularity:
+                book_popularity[book_id] += 1
+            else:
+                book_popularity[book_id] = 1
+
+    most_popular = max(book_popularity, key=book_popularity.get)
+
+    r.seek(0)
+    records = csv.reader(r)
+
+    reader_ids = set()
+    for line in records:
+        user_id = line[0]
+        for i in range(1, len(line)):
+            if line[i].strip() == most_popular:
+                reader_ids.add(user_id)
+
+    pop_book_name = ''
+    for line in books:
+        book_author = line[0]
+        book_name = line[1]
+        if most_popular in book_author:
+            pop_book_name = book_name
+            break
+
+    readers = []
+    for line in users:
+        user_id = line[0]
+        user_name = line[1]
+        if user_id in reader_ids:
+            readers.append(user_name)
+
+    print("The book is:", pop_book_name+ ".")
+    print("Readers' names are:", ", ".join(readers) + ".")
