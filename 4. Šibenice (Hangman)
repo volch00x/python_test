@@ -1,0 +1,64 @@
+import random
+
+words = ['python', 'clay', 'career', 'year', 'miracle', 'agency', 'education', 'gradient']
+
+word = random.choice(words)
+
+unknown = '?' * len(word)
+
+print('Current word:', unknown)
+
+def game():
+
+    global unknown
+
+    good_letters = set()
+    bad_letters = set()
+
+    attempts = 10
+
+    while unknown != word and attempts > 0:
+
+        guess = input('Type your letter: ').lower()
+
+        if guess in good_letters or guess in bad_letters:
+            print('You have already typed this letter')
+            continue
+
+        temp = ''
+
+        if guess in word:
+            good_letters.add(guess)
+
+            for letter in word:
+                if letter in good_letters:
+                    temp += letter
+
+                else:
+                    temp += '?'
+
+        else:
+            bad_letters.add(guess)
+
+            for letter in word:
+                if letter in good_letters:
+                    temp += letter
+
+                else:
+                    temp += '?'
+
+        unknown = temp
+
+        attempts = attempts - 1
+
+        print('Current word:', unknown)
+        print('Guessed letters:', ', '.join(good_letters))
+        print('Wrong letters:', ', '.join(bad_letters))
+        print('_'*30)
+
+    if word == unknown:
+        print('Congrats! You win!')
+    else:
+        print('You lose! The right word is', word)
+
+game()
