@@ -1,0 +1,17 @@
+def print_details(a, printOut=False, **kwargs):
+    for key, value in kwargs.items():
+        if printOut:
+            print(key + ": " + value + str(a))
+    return 1
+
+print_details('ish', True, name = 'Alice', city = 'New York')
+print(print_details('', False, name = 'Alice', city = 'New York'))
+print_details('Olomouc', True, jméno = 'Jaroslav ',  bydliště = '')
+
+# RESULT
+
+# name: Aliceish
+# city: New Yorkish
+# 1
+# jméno: Jaroslav Olomouc
+# bydliště: Olomouc
