@@ -1,0 +1,10 @@
+def dict_composition(dict1, dict2):
+    final_dict = dict1.copy()
+    # final_dict.update(dict2) # without cycle
+
+    for key, item in dict2.items():
+        final_dict[key] = item
+
+    print('Dictionary length:', len(final_dict))
+    print('Composed dictionary:', final_dict)
+    return final_dict
