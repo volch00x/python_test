@@ -1,0 +1,85 @@
+# Win condition is 5 in a row
+
+import numpy as np
+import random as ran
+
+xo = np.zeros((10,10), int) #matrix 10x10
+print(xo)
+
+game_over = False
+move_count = 0
+max_count = 100
+
+def win_condition(player):
+    for i in range(10): #horizontal check
+        for j in range(6):
+            if np.all(xo[i,j:j+5] == player):
+                return True
+
+    for i in range(6): #vertical check
+        for j in range(10):
+            if np.all(xo[i:i+5,j] == player):
+                return True
+
+    for i in range(6): #diagonal \ check
+        for j in range(6):
+            if all(xo[i+k,j+k] == player for k in range(5)):
+                return True
+
+    for i in range(6): #diagonal / check
+        for j in range(4,10):
+            if all(xo[i+k,j-k] == player for k in range(5)):
+                return True
+
+    return False
+
+def player_choice():
+    choice_x = int(input('Type your x: '))
+    choice_y = int(input('Type your y: '))
+
+    if xo[choice_x, choice_y] != 1 and xo[choice_x, choice_y] != 2: #checks if cell is available AKA if cell is 0
+        xo[choice_x, choice_y] = 1 #if it is - rewrites cell's value to 1
+        print(xo)
+
+        if win_condition(1): #after the player's move, the program checks if it was a winning move
+            print('Human wins')
+            return True
+        return False #returns False if the game is still ongoing
+
+    else:
+        print('Cell is occupied. Try again.')
+        return player_choice()
+
+def machine_choice():
+    choice_x = ran.randint(0,9)
+    choice_y = ran.randint(0,9)
+
+    if xo[choice_x, choice_y] != 1 and xo[choice_x, choice_y] != 2:
+        xo[choice_x, choice_y] = 2
+        print(xo)
+
+        if win_condition(2):
+            print('Machine wins')
+            return True
+        return False
+
+    else:
+        return machine_choice()
+
+while not game_over and move_count < max_count:
+
+    player_winner = player_choice()
+    if player_winner:
+        game_over = True
+        break
+    move_count += 1
+
+    machine_winner = machine_choice()
+    if machine_winner:
+        game_over = True
+        break
+    move_count += 1
+
+    if move_count >= max_count:
+        print('No one wins')
+        break
