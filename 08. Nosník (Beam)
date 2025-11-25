@@ -1,0 +1,35 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+L = 5
+n = 5
+f = 10
+EIy = 10000
+
+x = np.linspace(0,L,n)
+
+print(x)
+
+Mx = f*L/2*x-f*x**2/2
+print(Mx)
+
+plt.plot(x,Mx)
+plt.xlabel('Souradnice x (m)')
+plt.ylabel('Moment Mx (kNm)')
+plt.grid()
+ax = plt.gca()
+ax.set_title('Ohybový moment prostého nosníku')
+ax.invert_yaxis()
+plt.show()
+
+wx = (f*x**4/24 - f*L*x**3/12+f*L**3/24*x)/EIy * 1000 #mm
+print("Max. průhyb:", max(wx), "m")
+plt.plot(x, wx, marker = 'o', linestyle = 'dotted')
+plt.xlabel("Souřadnice x (m)")
+plt.ylabel("Průhyb w (mm)")
+ax = plt.gca()
+ax.set_title("Průhyb prostého nosníku")
+ax.invert_yaxis()
+plt.show()
+
+np.savetxt('nosnik.csv', (x, Mx, wx), delimiter=',')
